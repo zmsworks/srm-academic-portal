@@ -100,15 +100,206 @@ Sekolah Berkesan, Guru Gemilang, Murid Cemerlang
 
 <div class="card">
 
-<h2>Portal Setup Successful</h2>
+<h2>Dashboard</h2>
 
-<p>
-Dashboard development will be added next.
-</p>
+<div style="margin-bottom:20px;">
 
+<label>
+Assessment:
+</label>
+
+<select id="assessmentFilter">
+<option>Loading...</option>
+</select>
+
+</div>
+
+<div
+style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+">
+
+<div class="card">
+<h3>Total Students</h3>
+<div id="totalStudents">-</div>
+</div>
+
+<div class="card">
+<h3>Attendance Rate</h3>
+<div id="attendanceRate">-</div>
+</div>
+
+<div class="card">
+<h3>PRA Average %</h3>
+<div id="praAverage">-</div>
+</div>
+
+<div class="card">
+<h3>Years 1-3 Average %</h3>
+<div id="years13Average">-</div>
 </div>
 
 </div>
 
+</div>
+
+</div>
+    <script>
+
+const DASHBOARD_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vQza_s-hny35gjkraGCz927v21eazigbSopsptKq8xBdkKBi-I1RdsuOQKhu65Eq9C4SOJ49vChpuqw/pub?gid=125498080&single=true&output=csv";
+
+let dashboardData=[];
+
+async function loadDashboard(){
+
+    const response =
+        await fetch(DASHBOARD_URL);
+
+    const text =
+        await response.text();
+
+    const rows =
+        text.trim().split("\n");
+
+    const headers =
+        rows[0]
+        .split(",")
+        .map(h=>h.trim());
+
+    dashboardData =
+        rows.slice(1).map(row=>{
+
+            const values =
+                row.split(",");
+
+            let obj={};
+
+            headers.forEach((h,i)=>{
+                obj[h]=values[i]||"";
+            });
+
+            return obj;
+
+        });
+
+    buildAssessmentFilter();
+
+}
+
+function buildAssessmentFilter(){
+
+    const assessments =
+        [...new Set(
+            dashboardData.map(
+                r=>r["ASSESSMENT"]
+            )
+        )];
+
+    const filter =
+        document.getElementById(
+            "assessmentFilter"
+        );
+
+    filter.innerHTML="";
+
+    assessments.forEach(a=>{
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value=a;
+        option.textContent=a;
+
+        filter.appendChild(option);
+
+    });
+
+    filter.addEventListener(
+        "change",
+        updateDashboard
+    );
+
+    updateDashboard();
+
+}
+
+function getMetric(
+    assessment,
+    recordType,
+    category1,
+    metric
+){
+
+    const row =
+        dashboardData.find(r=>
+
+            r["ASSESSMENT"]===assessment &&
+            r["RECORD TYPE"]===recordType &&
+            r["CATEGORY 1"]===category1 &&
+            r["METRIC"]===metric
+
+        );
+
+    return row ? row["VALUE"] : "-";
+
+}
+
+function updateDashboard(){
+
+    const assessment =
+        document.getElementById(
+            "assessmentFilter"
+        ).value;
+
+    document.getElementById(
+        "totalStudents"
+    ).textContent =
+        getMetric(
+            assessment,
+            "SCHOOL OVERVIEW",
+            "",
+            "TOTAL STUDENTS"
+        );
+
+    document.getElementById(
+        "attendanceRate"
+    ).textContent =
+        getMetric(
+            assessment,
+            "SCHOOL ATTENDANCE OVERVIEW",
+            "",
+            "ATTENDANCE RATE"
+        ) + "%";
+
+    document.getElementById(
+        "praAverage"
+    ).textContent =
+        getMetric(
+            assessment,
+            "SCHOOL OVERVIEW",
+            "PRA",
+            "AVERAGE %"
+        ) + "%";
+
+    document.getElementById(
+        "years13Average"
+    ).textContent =
+        getMetric(
+            assessment,
+            "SCHOOL OVERVIEW",
+            "YEARS 1-3",
+            "AVERAGE %"
+        ) + "%";
+
+}
+
+loadDashboard();
+
+</script>
 </body>
 </html>
