@@ -150,6 +150,31 @@ gap:20px;
 <h3>Year 6 Average %</h3>
 <div id="year6Average">-</div>
 </div>
+
+    <div class="card">
+<h3>SENA Included</h3>
+<div id="senaIncluded">-</div>
+</div>
+
+<div class="card">
+<h3>SENA Excluded</h3>
+<div id="senaExcluded">-</div>
+</div>
+
+<div class="card">
+<h3>Academic Calculations</h3>
+<div id="academicStudents">-</div>
+</div>
+
+<div class="card">
+<h3>% A-C</h3>
+<div id="acRate">-</div>
+</div>
+
+<div class="card">
+<h3>% A-D</h3>
+<div id="adRate">-</div>
+</div>
     
 </div>
 
@@ -326,6 +351,56 @@ function updateDashboard(){
             "YEAR 6 AVERAGE %"
         ) + "%";
 
+document.getElementById(
+    "senaIncluded"
+).textContent =
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "SENA STUDENTS (INCLUDED IN ACADEMIC CALCULATIONS)"
+    );
+
+document.getElementById(
+    "senaExcluded"
+).textContent =
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "SENA STUDENTS (EXCLUDED FROM ACADEMIC CALCULATIONS)"
+    );
+
+document.getElementById(
+    "academicStudents"
+).textContent =
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "STUDENTS INCLUDED IN ACADEMIC CALCULATIONS"
+    );
+
+document.getElementById(
+    "acRate"
+).textContent =
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "%A-C"
+    ) + "%";
+
+document.getElementById(
+    "adRate"
+).textContent =
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "%A-D"
+    ) + "%";
+    
 }
 
 loadDashboard();
