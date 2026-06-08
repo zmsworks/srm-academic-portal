@@ -411,6 +411,20 @@ document.getElementById(
         "%A-D"
     ) + "%";
 
+console.log("Chart test");
+
+const gradeA =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE A"
+    )
+) || 0;
+
+console.log("Grade A =", gradeA);
+    
 }
 
 loadDashboard();
