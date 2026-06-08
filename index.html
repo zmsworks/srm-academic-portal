@@ -292,104 +292,6 @@ function getMetric(
 
     return row ? row["VALUE"] : "-";
 
-const gradeA =
-parseFloat(
-    getMetric(
-        assessment,
-        "SCHOOL OVERVIEW",
-        "",
-        "GRADE A"
-    )
-) || 0;
-
-const gradeB =
-parseFloat(
-    getMetric(
-        assessment,
-        "SCHOOL OVERVIEW",
-        "",
-        "GRADE B"
-    )
-) || 0;
-
-const gradeC =
-parseFloat(
-    getMetric(
-        assessment,
-        "SCHOOL OVERVIEW",
-        "",
-        "GRADE C"
-    )
-) || 0;
-
-const gradeD =
-parseFloat(
-    getMetric(
-        assessment,
-        "SCHOOL OVERVIEW",
-        "",
-        "GRADE D"
-    )
-) || 0;
-
-const gradeE =
-parseFloat(
-    getMetric(
-        assessment,
-        "SCHOOL OVERVIEW",
-        "",
-        "GRADE E"
-    )
-) || 0;
-
-if(gradeChart){
-    gradeChart.destroy();
-}
-
-const ctx =
-document
-.getElementById(
-    "gradeChart"
-)
-.getContext("2d");
-
-gradeChart =
-new Chart(ctx,{
-
-    type:"bar",
-
-    data:{
-        labels:[
-            "Grade A",
-            "Grade B",
-            "Grade C",
-            "Grade D",
-            "Grade E"
-        ],
-
-        datasets:[{
-
-            label:"Students",
-
-            data:[
-                gradeA,
-                gradeB,
-                gradeC,
-                gradeD,
-                gradeE
-            ],
-
-            backgroundColor:[
-                "#93C5FD",
-                "#C4B5FD",
-                "#F9A8D4",
-                "#A7F3D0",
-                "#FCD34D"
-            ]
-
-        }]
-    },
-
     options:{
         responsive:true,
         plugins:{
@@ -518,6 +420,104 @@ document.getElementById(
         "",
         "%A-D"
     ) + "%";
+
+const gradeA =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE A"
+    )
+) || 0;
+
+const gradeB =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE B"
+    )
+) || 0;
+
+const gradeC =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE C"
+    )
+) || 0;
+
+const gradeD =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE D"
+    )
+) || 0;
+
+const gradeE =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE E"
+    )
+) || 0;
+
+if(gradeChart){
+    gradeChart.destroy();
+}
+
+const ctx =
+document
+.getElementById(
+    "gradeChart"
+)
+.getContext("2d");
+
+gradeChart =
+new Chart(ctx,{
+
+    type:"bar",
+
+    data:{
+        labels:[
+            "Grade A",
+            "Grade B",
+            "Grade C",
+            "Grade D",
+            "Grade E"
+        ],
+
+        datasets:[{
+
+            label:"Students",
+
+            data:[
+                gradeA,
+                gradeB,
+                gradeC,
+                gradeD,
+                gradeE
+            ],
+
+            backgroundColor:[
+                "#93C5FD",
+                "#C4B5FD",
+                "#F9A8D4",
+                "#A7F3D0",
+                "#FCD34D"
+            ]
+
+        }]
+    },
     
 }
 
