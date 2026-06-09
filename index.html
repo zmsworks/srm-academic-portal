@@ -197,8 +197,11 @@ const DASHBOARD_URL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vQza_s-hny35gjkraGCz927v21eazigbSopsptKq8xBdkKBi-I1RdsuOQKhu65Eq9C4SOJ49vChpuqw/pub?gid=125498080&single=true&output=csv";
 
 let dashboardData=[];
-        let gradeChart = null;
 
+let gradeChart = null;
+
+let attendanceChart = null;
+        
 async function loadDashboard(){
 
     const response =
@@ -524,6 +527,147 @@ new Chart(ctx,{
 
 });
 
+<div class="card" style="margin-top:20px;">
+
+<h2>Attendance by Year Level</h2>
+
+<canvas id="attendanceChart"></canvas>
+
+</div>
+
+const praAttendance =
+parseFloat(
+    getMetric(
+        assessment,
+        "ATTENDANCE BY YEAR LEVEL",
+        "PRA",
+        "ATTENDANCE RATE"
+    )
+) || 0;
+
+const year1Attendance =
+parseFloat(
+    getMetric(
+        assessment,
+        "ATTENDANCE BY YEAR LEVEL",
+        "1",
+        "ATTENDANCE RATE"
+    )
+) || 0;
+
+const year2Attendance =
+parseFloat(
+    getMetric(
+        assessment,
+        "ATTENDANCE BY YEAR LEVEL",
+        "2",
+        "ATTENDANCE RATE"
+    )
+) || 0;
+
+const year3Attendance =
+parseFloat(
+    getMetric(
+        assessment,
+        "ATTENDANCE BY YEAR LEVEL",
+        "3",
+        "ATTENDANCE RATE"
+    )
+) || 0;
+
+const year4Attendance =
+parseFloat(
+    getMetric(
+        assessment,
+        "ATTENDANCE BY YEAR LEVEL",
+        "4",
+        "ATTENDANCE RATE"
+    )
+) || 0;
+
+const year5Attendance =
+parseFloat(
+    getMetric(
+        assessment,
+        "ATTENDANCE BY YEAR LEVEL",
+        "5",
+        "ATTENDANCE RATE"
+    )
+) || 0;
+
+const year6Attendance =
+parseFloat(
+    getMetric(
+        assessment,
+        "ATTENDANCE BY YEAR LEVEL",
+        "6",
+        "ATTENDANCE RATE"
+    )
+) || 0;
+
+if(attendanceChart){
+    attendanceChart.destroy();
+}
+
+const attendanceCtx =
+document
+.getElementById("attendanceChart")
+.getContext("2d");
+
+attendanceChart =
+new Chart(attendanceCtx,{
+
+    type:"bar",
+
+    data:{
+        labels:[
+            "PRA",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5",
+            "Year 6"
+        ],
+
+        datasets:[{
+
+            label:"Attendance Rate",
+
+            data:[
+                praAttendance,
+                year1Attendance,
+                year2Attendance,
+                year3Attendance,
+                year4Attendance,
+                year5Attendance,
+                year6Attendance
+            ],
+
+            backgroundColor:"#93C5FD"
+
+        }]
+    },
+
+    options:{
+        responsive:true,
+
+        plugins:{
+            legend:{
+                display:false
+            }
+        },
+
+        scales:{
+            y:{
+                min:80,
+                max:100
+            }
+        }
+    }
+
+});
+    
 }
 
 loadDashboard();
