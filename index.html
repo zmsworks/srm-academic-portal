@@ -412,8 +412,6 @@ document.getElementById(
         "%A-D"
     ) + "%";
 
-console.log("Chart test");
-
 const gradeA =
 parseFloat(
     getMetric(
@@ -424,12 +422,45 @@ parseFloat(
     )
 ) || 0;
 
-console.log("Grade A =", gradeA);
+const gradeB =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE B"
+    )
+) || 0;
 
-const canvas =
-document.getElementById("gradeChart");
+const gradeC =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE C"
+    )
+) || 0;
 
-console.log("Canvas =", canvas);
+const gradeD =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE D"
+    )
+) || 0;
+
+const gradeE =
+parseFloat(
+    getMetric(
+        assessment,
+        "SCHOOL OVERVIEW",
+        "",
+        "GRADE E"
+    )
+) || 0;
     
 }
 
