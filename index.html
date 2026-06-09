@@ -193,6 +193,14 @@ gap:20px;
 <canvas id="attendanceChart"></canvas>
 
 </div>
+
+<div class="card" style="margin-top:20px;">
+
+<h2>Academic Performance Comparison</h2>
+
+<canvas id="performanceChart"></canvas>
+
+</div>
     
 </div>
 
@@ -209,6 +217,8 @@ let dashboardData=[];
 let gradeChart = null;
 
 let attendanceChart = null;
+
+let performanceChart = null;
         
 async function loadDashboard(){
 
@@ -661,6 +671,104 @@ new Chart(attendanceCtx,{
         scales:{
             y:{
                 min:80,
+                max:100
+            }
+        }
+    }
+
+});
+
+const performanceData = [
+
+    parseFloat(
+        getMetric(
+            assessment,
+            "SCHOOL OVERVIEW",
+            "",
+            "PRA AVERAGE %"
+        )
+    ) || 0,
+
+    parseFloat(
+        getMetric(
+            assessment,
+            "SCHOOL OVERVIEW",
+            "",
+            "YEARS 1-3 AVERAGE %"
+        )
+    ) || 0,
+
+    parseFloat(
+        getMetric(
+            assessment,
+            "SCHOOL OVERVIEW",
+            "",
+            "YEARS 4-5 AVERAGE %"
+        )
+    ) || 0,
+
+    parseFloat(
+        getMetric(
+            assessment,
+            "SCHOOL OVERVIEW",
+            "",
+            "YEAR 6 AVERAGE %"
+        )
+    ) || 0
+
+];
+
+if(performanceChart){
+    performanceChart.destroy();
+}
+
+const performanceCtx =
+document
+.getElementById("performanceChart")
+.getContext("2d");
+
+performanceChart =
+new Chart(performanceCtx,{
+
+    type:"bar",
+
+    data:{
+
+        labels:[
+            "PRA",
+            "Years 1-3",
+            "Years 4-5",
+            "Year 6"
+        ],
+
+        datasets:[{
+
+            label:"Average %",
+
+            data:performanceData,
+
+            backgroundColor:[
+                "#93C5FD",
+                "#C4B5FD",
+                "#F9A8D4",
+                "#A7F3D0"
+            ]
+
+        }]
+    },
+
+    options:{
+        responsive:true,
+
+        plugins:{
+            legend:{
+                display:false
+            }
+        },
+
+        scales:{
+            y:{
+                beginAtZero:true,
                 max:100
             }
         }
