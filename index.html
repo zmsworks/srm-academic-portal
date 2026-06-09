@@ -462,6 +462,68 @@ parseFloat(
     )
 ) || 0;
     
+if(gradeChart){
+    gradeChart.destroy();
+}
+
+const ctx =
+document
+.getElementById("gradeChart")
+.getContext("2d");
+
+gradeChart =
+new Chart(ctx,{
+
+    type:"bar",
+
+    data:{
+        labels:[
+            "Grade A",
+            "Grade B",
+            "Grade C",
+            "Grade D",
+            "Grade E"
+        ],
+
+        datasets:[{
+            label:"Students",
+
+            data:[
+                gradeA,
+                gradeB,
+                gradeC,
+                gradeD,
+                gradeE
+            ],
+
+            backgroundColor:[
+                "#93C5FD",
+                "#C4B5FD",
+                "#F9A8D4",
+                "#A7F3D0",
+                "#FCD34D"
+            ]
+        }]
+    },
+
+    options:{
+        responsive:true,
+
+        plugins:{
+            legend:{
+                display:false
+            }
+        },
+
+        scales:{
+            y:{
+                beginAtZero:true
+            }
+        }
+    }
+
+});
+
 }
 
 loadDashboard();
